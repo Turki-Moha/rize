@@ -8,6 +8,15 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        rotate: {
+          '0%': { transform: 'rotate(45deg)' },
+          '100%': { transform: 'rotate(90deg)' },
+        },
+      },
+      animation: {
+        rotate: 'rotate 0.6s linear ',
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

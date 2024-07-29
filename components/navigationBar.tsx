@@ -1,181 +1,178 @@
-// "use client"
-// import React, { useState } from 'react';
-// import { Home, Search, MessageSquare, Grid, Plus } from 'lucide-react';
-// import Image from 'next/image';
-// const BottomNav = () => {
-//     const tab = ["Home", "Search", "Chat", "Menu"]
-//     const tabIcon = [<Home />, <Search />, <MessageSquare />, <Grid />]
-//     const [isActive, setIsActive] = useState(0);
-//     return (
-//         <nav className="absolute bottom-0 left-0 right-0 p-2 bg-white-750" >
-
-//             <div className="flex justify-between items-center max-w-screen-sm mx-auto relative">
-//                 {tab.map((item, index) => {
-//                     return (
-//                         <NavItem
-//                             key={index}
-//                             icon={tabIcon[index]}
-//                             label={item}
-//                             isActive={index === isActive}
-//                             onClick={() => setIsActive(index)}
-//                         />
-//                     );
-//                 })}
-//                 {/* Floating Action Button */}
-//                 <div className="absolute left-1/2 -translate-x-1/2 -top-8">
-//                     <button className="bg-cyan-300 text-white-850 p-4 rounded-full shadow-lg transition-colors duration-300 w-16 h-16">
-//                         {<Image className="m-auto" src="/logo.png" width={24} height={24} alt='' />}
-//                     </button>
-//                 </div>
-//             </div>
-//         </nav>
-//     );
-// }; ``
-
-// const NavItem = ({ icon, label, isActive = false, onClick }: {
-//     icon: any, label: string, isActive?: boolean, onClick?: () => void
-// }) => {
-//     return (
-//         <button className={`flex flex-col items-center ${isActive ? 'text-white-750 -mb-2' : 'text-white-500'}`} onClick={onClick}>
-//             <div className={`p-4 rounded-full ${isActive ? 'bg-cyan-300' : 'text-white-500'}`}>
-//                 <div>
-//                     {icon}
-//                 </div>
-//             </div>
-//             <span className={`text-xs ${isActive ? 'opacity-0' : ''}`}>{label}</span>
-//         </button>
-//     );
-// };
-
-// export default BottomNav;
-
-// "use client"
-// import React, { useState } from 'react';
-// import { Home, Search, MessageSquare, Grid, Plus } from 'lucide-react';
-// import Image from 'next/image';
-
-// const BottomNav = () => {
-//     const tab = ["Home", "Search", "", "Menu", "Chat"]; // Include FAB in the tab list
-//     const tabIcon = [<Home />, <Search />, <Image className="m-auto" src="/logo.png" width={24} height={24} alt='' />, <MessageSquare />, <Grid />];
-//     const [isActive, setIsActive] = useState(0);
-
-//     return (
-//         <nav className="absolute bottom-0 left-0 right-0 p-2 bg-white-750">
-//             <div className="flex justify-between items-center max-w-screen-sm mx-auto">
-//                 {tab.map((item, index) => {
-//                     return (
-//                         <NavItem
-//                             key={index}
-//                             icon={tabIcon[index]}
-//                             label={item}
-//                             isActive={index === isActive}
-//                             onClick={() => setIsActive(index)}
-//                         />
-//                     );
-//                 })}
-//             </div>
-//         </nav>
-//     );
-// };
-
-// const NavItem = ({ icon, label, isActive = false, onClick }: {
-//     icon: any, label: string, isActive?: boolean, onClick?: () => void
-// }) => {
-//     return (
-//         <button className={`flex flex-col items-center ${isActive ? 'text-white-750 -mb-2' : 'text-white-500'}`} onClick={onClick}>
-//             <div className={`p-4 rounded-full ${isActive ? 'bg-cyan-300' : 'text-white-500'}`}>
-//                 <div>
-//                     {icon}
-//                 </div>
-//             </div>
-//             <span className={`text-xs ${isActive ? 'opacity-0' : ''}`}>{label}</span>
-//         </button>
-//     );
-// };
-
-// export default BottomNav;
-
-
 "use client"
-import React, { useState } from 'react';
-import { Home, Search, MessageSquare, Grid } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Home, Search, MessageSquare, LayoutGrid, X } from 'lucide-react';
+import Club from "@/public/assets/icons/club.svg"
+import Events from "@/public/assets/icons/events.svg"
+import Overview from "@/public/assets/icons/overview.svg"
+import Logo from "@/public/assets/icons/logo.svg"
+import games from "@/public/assets/images/pubg.png"
 import Image from 'next/image';
 
-const BottomNav = () => {
-    const tab = ["Home", "Search", "Chat", "Menu"];
-    const tabIcon = [<Home />, <Search />, <MessageSquare />, <Grid />];
-    const [isActive, setIsActive] = useState(0);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+const ImageGrid = ({ images }) => {
+    const isSingleImage = images.length === 1;
+    const isTwoImages = images.length === 2;
 
     return (
-        <>
-            <nav className="absolute bottom-0 left-0 right-0 p-2 bg-white-750 rounded-t-[32px] overflow-hidden">
-                <div className="flex justify-between items-center max-w-screen-sm mx-auto">
-                    {tab.map((item, index) => (
-                        <NavItem
-                            key={index}
-                            icon={tabIcon[index]}
-                            label={item}
-                            isActive={index === isActive}
-                            onClick={() => setIsActive(index)}
-                        />
+        <div
+            className={`${isSingleImage ? 'flex items-center justify-center rounded-lg' : 'grid grid-cols-2 grid-rows-2'
+                } border-2 border-white-700 rounded-lg w-14 h-14 ${isSingleImage ? 'p-1 ' : ''
+                }`}
+        >
+            {images.map((image, i) => (
+                <Image
+                    key={i}
+                    src={image}
+                    width={32}
+                    height={32}
+                    alt=""
+                    className={`${isSingleImage ? '' : 'rounded-full '} ${isSingleImage ? 'w-full h-full rounded-lg' : ''}`}
+                />
+            ))}
+        </div>
+    );
+};
+
+const RizeMenu = () => {
+    const [activeTab, setActiveTab] = useState(0);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [activeQuickAccessTab, setActiveQuickAccessTab] = useState(0);
+
+    const tabs = [
+        { icon: Home, label: 'Home' },
+        { icon: Search, label: 'Search' },
+        { icon: MessageSquare, label: 'Chat' },
+        { icon: LayoutGrid, label: 'Menu' },
+    ];
+
+    const quickAccessItems = [
+        { label: 'Overview', icon: Overview },
+        { label: 'Events', icon: Events },
+        { label: 'My clubs', icon: Club },
+        { label: 'Message', icon: <MessageSquare /> },
+    ];
+
+    const gridImages = [
+        [games, games, games, games],
+        [games],
+        [games, games],
+        [games, games, games],
+    ];
+    useEffect(() => {
+    }, [activeTab, isModalOpen])
+    return (
+        <div className="relative h-screen bg-gray-900">
+            {/* Bottom Navigation */}
+            <nav className="fixed bottom-0 left-0 right-0 bg-gray-800 rounded-t-3xl">
+                <div className="flex justify-between items-center p-2">
+                    {tabs.map((tab, index) => (
+                        <button
+                            key={tab.label}
+                            className={`flex flex-col items-center space-y-1 transition-all duration-700 ${activeTab === index ? 'text-white-750 ' : 'text-gray-400'
+                                }`}
+                            onClick={
+                                index == 3
+                                    ? () => {
+                                        setIsModalOpen(true);
+                                        setActiveTab(index);
+                                    }
+                                    : () => setActiveTab(index)
+                            }
+                        >
+                            <div
+                                className={`p-3 rounded-full transition-transform duration-700 ${activeTab === index ? 'bg-cyan-300 ' : ''
+                                    }`}
+                                onClick={index == 4 ? () => setIsModalOpen(true) : () => { }}
+                            >
+                                <tab.icon size={24} />
+                            </div>
+                            {activeTab !== index ? <span className="text-xs">{tab.label}</span> : <></>}
+                        </button>
                     ))}
                 </div>
             </nav>
+
             {/* Floating Action Button */}
-            <div className="fixed bottom-16 left-1/2 transform -translate-x-1/2 z-50">
-                <button
-                    className="bg-cyan-300 text-white-850 p-4 rounded-full shadow-lg transition-colors duration-300 w-16 h-16"
-                    onClick={openModal}
-                >
-                    <Image className="m-auto" src="/logo.png" width={24} height={24} alt='' />
-                </button>
-            </div>
-            {/* Modal */}
+            <button
+                className="fixed flex bottom-14 left-1/2 w-16 h-16 items-center justify-center -translate-x-1/2 bg-cyan-300 text-gray-900 p-4 rounded-full shadow-lg z-20"
+                onClick={
+                    activeTab == 3 && isModalOpen
+                        ? () => {
+                            setIsModalOpen(false);
+                            setActiveTab(-1);
+                        }
+                        : () => { }
+                }
+            >
+                {activeTab == 3 && isModalOpen ? (
+                    <X size={32} className="animate-rotate" />
+                ) : (
+                    <Image src={Logo} width={24} height={24} alt="" className="" />
+                )}
+            </button>
+
+            {/* Quick Access Menu Modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <div className="bg-white-750 p-4 m-4 rounded-lg shadow-lg max-w-sm w-full">
-                        <h2 className="text-xl mb-4 text-white">Quick access menu</h2>
-                        <ul>
-                            <li className='grid grid-cols-2 grid-rows-2'>
-                                <Image className="m-auto" src="/logo.png" width={24} height={24} alt='' />
-                                <Image className="m-auto" src="/logo.png" width={24} height={24} alt='' />
-                                <Image className="m-auto" src="/logo.png" width={24} height={24} alt='' />
-                                <Image className="m-auto" src="/logo.png" width={24} height={24} alt='' />
-                            </li>
-                            <li className='grid grid-cols-2 grid-rows-2'>
-                                <Image className="m-auto" src="/logo.png" width={24} height={24} alt='' />
-                                <Image className="m-auto" src="/logo.png" width={24} height={24} alt='' />
-                                <Image className="m-auto" src="/logo.png" width={24} height={24} alt='' />
-                                <Image className="m-auto" src="/logo.png" width={24} height={24} alt='' />
-                            </li>
-                        </ul>
-                        <button className="mt-4 p-2 bg-cyan-300 text-white-850 rounded" onClick={closeModal}>
-                            Close
-                        </button>
+                <div className="fixed inset-0 flex items-center justify-center p-4">
+                    <div className="bg-gray-800 rounded-3xl p-6 w-full max-w-sm">
+                        <h2 className="text-white text-xl font-semibold mb-4">
+                            Quick access menu
+                        </h2>
+                        <div className="grid grid-cols-4 gap-4 mb-6">
+                            {gridImages.map((images, i) => (
+                                <ImageGrid key={i} images={images} />
+                            ))}
+                        </div>
+                        <hr className="border-gray-700 my-4" />
+                        <div className="flex justify-between items-center">
+                            {quickAccessItems.map((item, index) => (
+                                <button
+                                    key={item.label}
+                                    className={`flex flex-col items-center justify-center space-y-2 w-16 h-16 rounded-full transition-all duration-300`}
+                                    onClick={() => setActiveQuickAccessTab(index)}
+                                >
+                                    <div className="w-6 h-6 flex items-center justify-center">
+                                        {item.label !== 'Message' ? (
+                                            <>
+                                                {index === activeQuickAccessTab ? <div className="gradient-bg absolute h-16 w-16 z-0 opacity-25"></div> : <></>}
+                                                <div className="absolute flex items-center justify-center">
+                                                    <Image
+                                                        src={item.icon}
+                                                        width={24}
+                                                        height={24}
+                                                        alt=""
+                                                        className={`transition-all duration-300 z-10 ${index === activeQuickAccessTab ? 'filter brightness-0 invert' : ''}`}
+                                                    />
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <>
+
+                                                {index === activeQuickAccessTab ? <div className="gradient-bg absolute h-16 w-16 z-0 opacity-25"></div> : <></>}
+                                                <MessageSquare
+                                                    size={24}
+                                                    className={`transition-all duration-300 ${index === activeQuickAccessTab ? 'text-cyan-300' : 'text-gray-400'
+                                                        }`}
+                                                />
+                                            </>
+                                        )}
+                                    </div>
+                                    <span className={`text-xs transition-all duration-300  ${index === activeQuickAccessTab ? 'text-cyan-300' : 'text-gray-400'
+                                        }`}>
+                                        {item.label}
+                                    </span>
+                                </button>
+                            ))}
+                        </div>
                     </div>
                 </div>
             )}
-        </>
+            <style jsx>{`
+                .gradient-bg {
+                    background-image: radial-gradient(circle, rgba(135,249,234,1) 0%, rgba(0,0,0,0) 50%);
+                }
+            `}</style>
+        </div>
     );
 };
 
-const NavItem = ({ icon, label, isActive = false, onClick }: {
-    icon: any, label: string, isActive?: boolean, onClick?: () => void
-}) => {
-    return (
-        <button className={`flex flex-col items-center ${isActive ? 'text-white-750 -mb-2' : 'text-white-500'}`} onClick={onClick}>
-            <div className={`p-4 rounded-full ${isActive ? 'bg-cyan-300' : 'text-white-500'}`}>
-                <div>
-                    {icon}
-                </div>
-            </div>
-            <span className={`text-xs ${isActive ? 'opacity-0' : ''}`}>{label}</span>
-        </button>
-    );
-};
-
-export default BottomNav;
+export default RizeMenu;
